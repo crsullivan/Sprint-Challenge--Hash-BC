@@ -13,6 +13,19 @@ def get_indices_of_item_weights(weights, length, limit):
     YOUR CODE HERE
     """
 
+    for i in range(length):
+        start = hash_table_retrieve(ht, (limit-weights[i]))
+        print('i', i)
+        print('first', start)
+        if start is not None:
+            pair = (i, start)
+            # return the new 'starting point of the array insertion, as its index will by definition be greater than the other value found. 
+            print('i start', i,start)
+            print('pair', pair)
+            return pair 
+        else:
+            # check values that have already been put in the array
+            hash_table_insert(ht, weights[i], i)
     return None
 
 
