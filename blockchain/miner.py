@@ -23,8 +23,15 @@ def proof_of_work(last_proof):
     start = timer()
 
     print("Searching for next proof")
-    proof = 0
+    # block_string = json.dumps(last_proof, sort_keys=True)
+    proof = 783782300000
     #  TODO: Your code here
+
+    while not valid_proof(last_proof, proof):
+        proof += 1 
+
+    print("Proof found: " + str(proof) + " in " + str(timer() - start))
+    return proof
 
     print("Proof found: " + str(proof) + " in " + str(timer() - start))
     return proof
@@ -40,7 +47,10 @@ def valid_proof(last_hash, proof):
     """
 
     # TODO: Your code here!
-    pass
+    last = hashlib.sha256(f"{last_hash}".encode()).hexdigest()
+    my_proof = hashlib.sha256(f"{proof}".encode()).hexdigest()
+    # return True or False
+    return last[-5:] == my_proof[:5]
 
 
 if __name__ == '__main__':
@@ -48,7 +58,11 @@ if __name__ == '__main__':
     if len(sys.argv) > 1:
         node = sys.argv[1]
     else:
-        node = "https://lambda-coin.herokuapp.com/api"
+        node = 'https://lambda-coin.herokuapp.com/api'
+        # "https://lambda-coin-test-1.herokuapp.com/api"
+        # ""
+        # 
+        # 
 
     coins_mined = 0
 
